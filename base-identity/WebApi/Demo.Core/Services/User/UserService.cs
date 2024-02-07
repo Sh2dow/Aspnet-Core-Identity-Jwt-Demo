@@ -515,6 +515,29 @@ namespace RainstormTech.Services.User
             }
         }
 
+        public async Task<ServiceResponse<UserSimpleDTO>> GetUser(string username)
+        {
+            var r = new ServiceResponse<UserSimpleDTO>();
+
+            try
+            {
+                var u = await userManager.Users
+                                .Include(o => o.Contact)
+                                .FirstOrDefaultAsync(o => o.UserName == username);
+
+                if (u == null)
+                    return r.NotFound("user not found");
+
+                var dto = mapper.Map<UserSimpleDTO>(u);
+
+                return r.Ok(dto);
+            }
+            catch (Exception ex)
+            {
+                return r.BadRequest(ex.Message);
+            }
+        }
+
         public GenericResponse UnDeleteContact(Guid id)
         {
             var r = new GenericResponse();

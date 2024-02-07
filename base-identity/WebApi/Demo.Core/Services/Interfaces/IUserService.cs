@@ -14,6 +14,7 @@ namespace RainstormTech.Services.Interfaces
     {
         ServiceResponse<UserSearchDTO> SearchUsers(UserSearchInput req);
         Task<ServiceResponse<UserSimpleDTO>> GetUser(Guid id);
+        Task<ServiceResponse<UserSimpleDTO>> GetUser(string username);
         Task<ServiceResponse<Guid>> AddUser(UserInput dto);
         Task<ServiceResponse<UserSimpleDTO>> UpdateUser(string id, UserSimpleDTO dto);
         Task<GenericResponse> DeleteUser(string id);
